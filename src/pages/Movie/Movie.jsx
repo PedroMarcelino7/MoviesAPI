@@ -1,17 +1,7 @@
 import styles from './Movie.module.css'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Container, Grid, Typography } from '@mui/material'
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Box, CardMedia, Container, Grid, Typography } from '@mui/material'
 
 const Movie = () => {
     const { id } = useParams()
@@ -41,9 +31,47 @@ const Movie = () => {
                 component="h1"
                 variant='h4'
                 textAlign='center'
-            >{movie && movie.title}</Typography>
+                pt={5}
+            >
+                {movie && movie.title}
+            </Typography>
 
-            
+            <Grid
+                container
+                py={5}
+                spacing={5}
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+            >
+                <Grid
+                    item
+                    xs={12} sm={6} md={4} lg={3}
+                    display='flex'
+                    justifyContent='right'
+                >
+                    {movie &&
+                        <CardMedia
+                            component="img"
+                            height="450"
+                            style={{ objectFit: 'contain', alignSelf: 'flex-start' }}
+                            image={imageURL + movie.poster_path}
+                            alt={movie.title}
+                        />
+                    }
+                </Grid>
+
+                <Grid
+                    item
+                    xs={12} sm={6} md={4} lg={3}
+                    display='flex'
+                    justifyContent='left'
+                >
+                    <Typography textAlign='center'>
+                        Teste
+                    </Typography>
+                </Grid>
+            </Grid>
         </Container>
     )
 }
