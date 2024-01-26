@@ -2,9 +2,8 @@ import styles from './Movie.module.css'
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, CardMedia, Container, Grid, Typography, Card, Paper } from '@mui/material'
+import { Box, CardMedia, Container, Grid, Typography, Paper } from '@mui/material'
 import RatingStars from '../../components/RatingStars/RatingStars'
-import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -34,6 +33,12 @@ const Movie = () => {
         const movieURL = `${moviesURL}${id}?${apiKey}`
         getMovie(movieURL)
     }, [])
+
+    const [showOverview, setShowOverview] = useState(false)
+
+    const handleShowOverview = () => {
+        setShowOverview(!showOverview)
+    }
 
     return (
         <>{movie &&
@@ -71,10 +76,11 @@ const Movie = () => {
                     <Grid
                         item
                         xs={12} sm={6} md={4} lg={3}
-                        justifyContent='right'
                         sx={{
+                            position: 'relative',
                             display: { xs: 'none', sm: 'flex' },
                             flexDirection: 'column',
+                            justifyContent: 'right',
                             gap: '15px'
                         }}
                     >
@@ -94,6 +100,45 @@ const Movie = () => {
                                 image={imageURL + movie.poster_path}
                                 alt={movie.title}
                             />
+
+                            {showOverview &&
+                                <Box
+                                    position='absolute'
+                                    top='0'
+                                    left='0'
+                                    height='100%'
+                                    backgroundColor='rgba(0, 0, 0, 0.85)'
+                                    padding='1rem'
+                                    textAlign='justify'
+                                    borderRadius='7px'
+                                >
+                                    <Typography
+                                        component='p'
+                                        variant='body1'
+                                    >
+                                        {movie.overview}
+                                    </Typography>
+                                </Box>
+                            }
+
+                            <Box
+                                position='absolute'
+                                bottom='5px'
+                                left='5px'
+                            >
+                                <Paper
+                                    onClick={() => (handleShowOverview())}
+                                    elevation={0}
+                                    sx={{
+                                        paddingInline: '10px',
+                                        paddingBlock: '5px',
+                                        textAlign: 'center',
+                                        fontSize: '1.3rem',
+                                        cursor: 'pointer'
+                                    }}>
+                                    Overview
+                                </Paper>
+                            </Box>
                         </Box>
 
                         <Box sx={{
@@ -104,6 +149,7 @@ const Movie = () => {
                             <RatingStars rate={movie.vote_average} />
 
                             <Typography
+                                component='p'
                                 variant='body2'
                                 ml={1}
                             >
@@ -117,10 +163,10 @@ const Movie = () => {
                         xs={12} sm={6} md={4} lg={3}
                     >
                         <Box
-                            height={450}
                             display='flex'
                             flexDirection='column'
-                            justifyContent='space-between'
+                            justifyContent='flex-start'
+                            gap='25px'
                         >
                             <Box>
                                 <Typography
@@ -129,7 +175,10 @@ const Movie = () => {
                                 >
                                     Release Date
                                 </Typography>
-                                <Typography>
+                                <Typography
+                                    component='h2'
+                                    variant='h6'
+                                >
                                     {movie.release_date}
                                 </Typography>
                             </Box>
@@ -141,7 +190,10 @@ const Movie = () => {
                                 >
                                     Runtime
                                 </Typography>
-                                <Typography>
+                                <Typography
+                                    component='h2'
+                                    variant='h6'
+                                >
                                     {movie.runtime} minutes
                                 </Typography>
                             </Box>
@@ -153,8 +205,11 @@ const Movie = () => {
                                 >
                                     Budget
                                 </Typography>
-                                <Typography>
-                                    {movie.budget}
+                                <Typography
+                                    component='h2'
+                                    variant='h6'
+                                >
+                                    ${movie.budget}
                                 </Typography>
                             </Box>
 
@@ -173,7 +228,7 @@ const Movie = () => {
                                     flexWrap="wrap"
                                 >
                                     {movie.production_companies.map((company, index) => (
-                                        <Item key={index}>{company.name} ({company.origin_country})</Item>
+                                        <Item key={index}>{company.name} {company.origin_country ? `(${company.origin_country})` : null}</Item>
                                     ))}
                                 </Stack>
                             </Box>
