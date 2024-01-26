@@ -1,9 +1,19 @@
 import styles from './Movie.module.css'
+import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, CardMedia, Container, Grid, Typography, Card } from '@mui/material'
+import { Box, CardMedia, Container, Grid, Typography, Card, Paper } from '@mui/material'
 import RatingStars from '../../components/RatingStars/RatingStars'
-import FlipIcon from '@mui/icons-material/AutorenewRounded';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 const Movie = () => {
     const { id } = useParams()
@@ -25,32 +35,31 @@ const Movie = () => {
         getMovie(movieURL)
     }, [])
 
-    // const [movieImage, setMovieImage] = useState('')
-
-    // useEffect(() => {
-    //     if (movie) {
-    //         setMovieImage(movie.poster_path)
-    //     }
-    // }, [movie])
-
-    // const handleChangeImage = () => {
-    //     movieImage === movie.poster_path ? setMovieImage(movie.backdrop_path) : setMovieImage(movie.poster_path)
-    // }
-
     return (
-        <Container
-            maxWidth={'xl'}
-        >
-            <Typography
-                component="h1"
-                variant='h4'
-                textAlign='center'
-                pt={5}
+        <>{movie &&
+            <Container
+                maxWidth='xl'
             >
-                {movie && movie.title}
-            </Typography>
 
-            {movie &&
+                <Box>
+                    <Typography
+                        component="h1"
+                        variant='h4'
+                        textAlign='center'
+                        pt={5}
+                    >
+                        {movie.title}
+                    </Typography>
+
+                    <Typography
+                        component="h2"
+                        variant='h6'
+                        textAlign='center'
+                    >
+                        {movie.tagline}
+                    </Typography>
+                </Box>
+
                 <Grid
                     container
                     py={5}
@@ -64,7 +73,9 @@ const Movie = () => {
                         xs={12} sm={6} md={4} lg={3}
                         justifyContent='right'
                         sx={{
-                            display: { xs: 'none', sm: 'flex' }
+                            display: { xs: 'none', sm: 'flex' },
+                            flexDirection: 'column',
+                            gap: '15px'
                         }}
                     >
                         <Box
@@ -83,23 +94,21 @@ const Movie = () => {
                                 image={imageURL + movie.poster_path}
                                 alt={movie.title}
                             />
+                        </Box>
 
-                            {/* <Box
-                                onClick={() => handleChangeImage()}
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center'
+                        }}>
+                            <RatingStars rate={movie.vote_average} />
+
+                            <Typography
+                                variant='body2'
+                                ml={1}
                             >
-                                <FlipIcon sx={{
-                                    position: 'absolute',
-                                    bottom: 10,
-                                    left: 10,
-                                    width: '30px',
-                                    height: '30px',
-                                    cursor: 'pointer',
-                                    backgroundColor: '#000',
-                                    borderRadius: '50%',
-                                    boxShadow: '0 0 15px #353535'
-                                }}
-                                />
-                            </Box> */}
+                                ({movie.vote_count})
+                            </Typography>
                         </Box>
                     </Grid>
 
@@ -114,39 +123,85 @@ const Movie = () => {
                             justifyContent='space-between'
                         >
                             <Box>
+                                <Typography
+                                    component='h1'
+                                    variant='h4'
+                                >
+                                    Release Date
+                                </Typography>
                                 <Typography>
-                                    budget
+                                    {movie.release_date}
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <Typography
+                                    component='h1'
+                                    variant='h4'
+                                >
+                                    Runtime
+                                </Typography>
+                                <Typography>
+                                    {movie.runtime} minutes
+                                </Typography>
+                            </Box>
+
+                            <Box>
+                                <Typography
+                                    component='h1'
+                                    variant='h4'
+                                >
+                                    Budget
                                 </Typography>
                                 <Typography>
                                     {movie.budget}
                                 </Typography>
                             </Box>
-                            {/*
-                                genres
-                                overview
-                                production companies / countrys
-                                release date
-                                runtime
-                            */}
 
-                            <Box sx={{
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}>
-                                <RatingStars rate={movie.vote_average} />
-
+                            <Box>
                                 <Typography
-                                    variant='body2'
-                                    ml={1}
+                                    component='h1'
+                                    variant='h4'
                                 >
-                                    ({movie.vote_count})
+                                    Companies
                                 </Typography>
+
+                                <Stack
+                                    spacing={1}
+                                    direction="row"
+                                    useFlexGap
+                                    flexWrap="wrap"
+                                >
+                                    {movie.production_companies.map((company, index) => (
+                                        <Item key={index}>{company.name} ({company.origin_country})</Item>
+                                    ))}
+                                </Stack>
+                            </Box>
+
+                            <Box>
+                                <Typography
+                                    component='h1'
+                                    variant='h4'
+                                >
+                                    Genres
+                                </Typography>
+
+                                <Stack
+                                    spacing={1}
+                                    direction="row"
+                                    useFlexGap
+                                    flexWrap="wrap"
+                                >
+                                    {movie.genres.map((genre, index) => (
+                                        <Item key={index}>{genre.name}</Item>
+                                    ))}
+                                </Stack>
                             </Box>
                         </Box>
                     </Grid>
                 </Grid>
-            }
-        </Container>
+            </Container>
+        }</>
     )
 }
 
