@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Box, CardMedia, Container, Grid, Typography, Card } from '@mui/material'
 import RatingStars from '../../components/RatingStars/RatingStars'
+import FlipIcon from '@mui/icons-material/AutorenewRounded';
 
 const Movie = () => {
     const { id } = useParams()
@@ -23,6 +24,18 @@ const Movie = () => {
         const movieURL = `${moviesURL}${id}?${apiKey}`
         getMovie(movieURL)
     }, [])
+
+    // const [movieImage, setMovieImage] = useState('')
+
+    // useEffect(() => {
+    //     if (movie) {
+    //         setMovieImage(movie.poster_path)
+    //     }
+    // }, [movie])
+
+    // const handleChangeImage = () => {
+    //     movieImage === movie.poster_path ? setMovieImage(movie.backdrop_path) : setMovieImage(movie.poster_path)
+    // }
 
     return (
         <Container
@@ -54,23 +67,40 @@ const Movie = () => {
                             display: { xs: 'none', sm: 'flex' }
                         }}
                     >
-                        <Card
-                            height={450}
+                        <Box
                             sx={{
-                                position: 'relative'
+                                position: 'relative',
+                                borderRadius: '10px',
+                                backgroundColor: 'none',
+                                boxShadow: '0 5px 10px black'
                             }}
                         >
                             <CardMedia
                                 sx={{
                                     borderRadius: '10px',
-                                    boxShadow: '0 5px 10px black'
                                 }}
                                 component="img"
                                 image={imageURL + movie.poster_path}
                                 alt={movie.title}
                             />
-                            {/* ICONE DE MUDAR IMAGEM */}
-                        </Card>
+
+                            {/* <Box
+                                onClick={() => handleChangeImage()}
+                            >
+                                <FlipIcon sx={{
+                                    position: 'absolute',
+                                    bottom: 10,
+                                    left: 10,
+                                    width: '30px',
+                                    height: '30px',
+                                    cursor: 'pointer',
+                                    backgroundColor: '#000',
+                                    borderRadius: '50%',
+                                    boxShadow: '0 0 15px #353535'
+                                }}
+                                />
+                            </Box> */}
+                        </Box>
                     </Grid>
 
                     <Grid
@@ -82,11 +112,13 @@ const Movie = () => {
                             display='flex'
                             flexDirection='column'
                             justifyContent='space-between'
-                            alignItems='center'
                         >
                             <Box>
                                 <Typography>
                                     budget
+                                </Typography>
+                                <Typography>
+                                    {movie.budget}
                                 </Typography>
                             </Box>
                             {/*

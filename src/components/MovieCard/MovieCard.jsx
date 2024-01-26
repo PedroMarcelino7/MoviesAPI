@@ -19,9 +19,9 @@ export default function MovieCard({ movie, showLink = true }) {
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    height="450"
+                    
                     style={{ objectFit: 'cover', alignSelf: 'flex-start' }}
-                    image={imageURL + movie.poster_path}
+                    image={imageURL + movie.backdrop_path}
                     alt={movie.title}
                 />
                 <CardContent sx={{
