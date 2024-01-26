@@ -75,10 +75,10 @@ const Movie = () => {
                 >
                     <Grid
                         item
-                        xs={12} sm={6} md={4} lg={3}
+                        xs={12} sm={7} md={5} lg={3}
                         sx={{
                             position: 'relative',
-                            display: { xs: 'none', sm: 'flex' },
+                            display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'right',
                             gap: '15px'
@@ -160,7 +160,7 @@ const Movie = () => {
 
                     <Grid
                         item
-                        xs={12} sm={6} md={4} lg={3}
+                        xs={12} sm={5} md={5} lg={3}
                     >
                         <Box
                             display='flex'

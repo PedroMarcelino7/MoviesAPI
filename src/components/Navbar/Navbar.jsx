@@ -258,7 +258,9 @@ function Navbar() {
             </Container>
 
             {showSearchBar &&
-                <Box paddingInline='2rem'>
+                <Box
+                    paddingInline='2rem'
+                >
                     <Toolbar
                         disableGutters
                         sx={{
@@ -272,7 +274,6 @@ function Navbar() {
                             onKeyUp={handleSubmit}
                         >
                             <StyledInputBaseMobile
-                                paddingLeft='0'
                                 placeholder="Search"
                                 inputProps={{ 'aria-label': 'search' }}
                                 onChange={(e) => setSearch(e.target.value)}
