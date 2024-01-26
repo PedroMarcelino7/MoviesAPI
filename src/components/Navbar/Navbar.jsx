@@ -42,12 +42,27 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBaseDesktop = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+                width: '20ch',
+            },
+        },
+    },
+}));
+const StyledInputBaseMobile = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    width: '100%',
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        paddingLeft: '1.5rem',
         transition: theme.transitions.create('width'),
         [theme.breakpoints.up('sm')]: {
             width: '12ch',
@@ -77,20 +92,25 @@ function Navbar() {
         }
     }
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
+    // const handleOpenNavMenu = (event) => {
+    //     setAnchorElNav(event.currentTarget);
+    // };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
+    // const handleCloseNavMenu = () => {
+    //     setAnchorElNav(null);
+    // };
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const [showSearchBar, setShowSearchBar] = useState(false)
+
+    const handleShowSearchBar = () => {
+        setShowSearchBar(!showSearchBar)
+    }
 
     return (
         <AppBar position="static">
@@ -116,16 +136,16 @@ function Navbar() {
                         </NavLink>
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
+                            onClick={handleShowSearchBar}
                             color="inherit"
                         >
-                            <MenuIcon />
+                            <SearchIcon />
                         </IconButton>
                         <Menu
                             id="menu-appbar"
@@ -140,7 +160,7 @@ function Navbar() {
                                 horizontal: 'left',
                             }}
                             open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
+                            // onClose={handleCloseNavMenu}
                             sx={{
                                 display: { xs: 'block', md: 'none' },
                             }}
@@ -196,8 +216,8 @@ function Navbar() {
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
+                            <StyledInputBaseDesktop
+                                placeholder="Search"
                                 inputProps={{ 'aria-label': 'search' }}
                                 onChange={(e) => setSearch(e.target.value)}
                                 value={search}
@@ -236,6 +256,32 @@ function Navbar() {
                     </Box>
                 </Toolbar>
             </Container>
+
+            {showSearchBar &&
+                <Box paddingInline='2rem'>
+                    <Toolbar
+                        disableGutters
+                        sx={{
+                            display: {
+                                xs: 'flex',
+                                sm: 'none'
+                            }
+                        }}
+                    >
+                        <Search
+                            onKeyUp={handleSubmit}
+                        >
+                            <StyledInputBaseMobile
+                                paddingLeft='0'
+                                placeholder="Search"
+                                inputProps={{ 'aria-label': 'search' }}
+                                onChange={(e) => setSearch(e.target.value)}
+                                value={search}
+                            />
+                        </Search>
+                    </Toolbar>
+                </Box>
+            }
         </AppBar>
     );
 }
