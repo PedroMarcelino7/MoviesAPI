@@ -24,10 +24,6 @@ const Home = () => {
 
     return (
         <Container maxWidth={'xl'}>
-            {/* <Typography>
-                TITULO DA PAGINA
-            </Typography> */}
-
             <Grid container py={5} spacing={5}>
                 {topMovies && topMovies.map((movie) => (
                     <Grid item

@@ -123,21 +123,16 @@ const Movie = () => {
 
                             <Box
                                 position='absolute'
-                                bottom='5px'
-                                left='5px'
+                                bottom='10px'
+                                left='10px'
                             >
-                                <Paper
+                                <button className='button'
                                     onClick={() => (handleShowOverview())}
-                                    elevation={0}
-                                    sx={{
-                                        paddingInline: '10px',
-                                        paddingBlock: '5px',
-                                        textAlign: 'center',
-                                        fontSize: '1.3rem',
-                                        cursor: 'pointer'
-                                    }}>
-                                    Overview
-                                </Paper>
+                                >
+                                    <a>
+                                        Overview
+                                    </a>
+                                </button>
                             </Box>
                         </Box>
 

@@ -19,7 +19,7 @@ export default function MovieCard({ movie, showLink = true }) {
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    
+
                     style={{ objectFit: 'cover', alignSelf: 'flex-start' }}
                     image={imageURL + movie.backdrop_path}
                     alt={movie.title}
@@ -52,15 +52,13 @@ export default function MovieCard({ movie, showLink = true }) {
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }}>
-                <Button
-                    size="small"
-                    color="primary"
-                    variant='outlined'
-                >
-                    <Tooltip title={movie.title} placement="right">
-                        <Link className={styles.link} to={`/movies/${movie.id}`}>Details</Link>
-                    </Tooltip>
-                </Button>
+                <Tooltip title={movie.title} placement="right">
+                    <button className='button'>
+                        <Link to={`/movies/${movie.id}`}>
+                            Details
+                        </Link>
+                    </button>
+                </Tooltip>
 
                 <Box sx={{
                     display: 'flex',
