@@ -82,12 +82,6 @@ function Navbar() {
     const [search, setSearch] = useState('')
     const navigate = useNavigate()
 
-    const handlePortfolioNavigate = () => {
-        window.history.pushState({}, '', '/');
-
-        window.location.href = 'https://pedromarcelino7.github.io/Portfolio/';
-    }
-
     const handleSubmit = (e) => {
         if (e.key === 'Enter') {
             if (!search) return
@@ -126,11 +120,9 @@ function Navbar() {
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
+                        onClick={() => handlePortfolioNavigate}
                     >
-                        <NavLink
-                            to={'https://pedromarcelino7.github.io/Portfolio/'}
-                            className={styles.logo}
-                        >
+                        <NavLink>
                             Portfolio
                         </NavLink>
                     </Typography>
@@ -161,10 +153,7 @@ function Navbar() {
                         }}
                         onClick={() => handlePortfolioNavigate}
                     >
-                        <NavLink
-                            to={'https://pedromarcelino7.github.io/Portfolio/'}
-                            className={styles.logo}
-                        >
+                        <NavLink>
                             Portfolio
                         </NavLink>
                     </Typography>
