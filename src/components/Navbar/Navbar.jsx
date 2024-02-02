@@ -83,7 +83,9 @@ function Navbar() {
     const navigate = useNavigate()
 
     const handlePortfolioNavigate = () => {
-        navigate('https://pedromarcelino7.github.io/Portfolio/')
+        window.history.pushState({}, '', '/');
+
+        window.location.href = 'https://pedromarcelino7.github.io/Portfolio/';
     }
 
     const handleSubmit = (e) => {
