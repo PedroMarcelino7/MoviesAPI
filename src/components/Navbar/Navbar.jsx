@@ -83,7 +83,7 @@ function Navbar() {
     const navigate = useNavigate()
 
     const handlePortfolioNavigate = () => {
-        window.location.href = 'https://pedromarcelino7.github.io/Portfolio/'
+        navigate('https://pedromarcelino7.github.io/Portfolio/')
     }
 
     const handleSubmit = (e) => {
