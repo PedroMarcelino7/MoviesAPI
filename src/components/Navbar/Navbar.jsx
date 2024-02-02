@@ -82,6 +82,10 @@ function Navbar() {
     const [search, setSearch] = useState('')
     const navigate = useNavigate()
 
+    const handlePortfolioNavigate = () => {
+        window.location.href = 'https://pedromarcelino7.github.io/Portfolio/'
+    }
+
     const handleSubmit = (e) => {
         if (e.key === 'Enter') {
             if (!search) return
@@ -153,6 +157,7 @@ function Navbar() {
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
+                        onClick={() => handlePortfolioNavigate}
                     >
                         <NavLink
                             to={'https://pedromarcelino7.github.io/Portfolio/'}
